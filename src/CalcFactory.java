@@ -52,7 +52,7 @@ abstract class CalcCommon implements CalcRule {
 
     final String inputSentence;
     String regex = "";
-    String delimeter = "";
+    String delimiter = "";
 
     public CalcCommon(String inputSentence) {
         this.inputSentence = inputSentence;
@@ -89,7 +89,7 @@ abstract class CalcCommon implements CalcRule {
     }
 
     String getDelimeter() {
-        return this.delimeter;
+        return this.delimiter;
     }
 
     boolean validate(int number) {
@@ -98,14 +98,14 @@ abstract class CalcCommon implements CalcRule {
 }
 
 /**
- * 기본 규칙은 , 와 : 를 delimeter 로 삼는다.
+ * 기본 규칙은 , 와 : 를 delimiter 로 삼는다.
  */
 class BasicCalc extends  CalcCommon {
 
     public BasicCalc(String inputSentence) {
         super(inputSentence);
         super.regex = "^\\d+(?:[,\\:]\\d+)*$|^$";
-        super.delimeter = "\\:|\\,";
+        super.delimiter = "\\:|\\,";
     }
 
     /**
@@ -151,7 +151,7 @@ class CustomCalc extends CalcCommon {
         if(!m.find()) {
             throw new RuntimeException();
         }
-        this.delimeter = m.group(1);
+        this.delimiter = m.group(1);
         this.source = m.group(2);
 
         return super.calc();
@@ -162,7 +162,7 @@ class CustomCalc extends CalcCommon {
      */
     @Override
     String getDelimeter() {
-        return Pattern.quote(this.delimeter);
+        return Pattern.quote(this.delimiter);
     }
 
     @Override
